@@ -6,9 +6,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductDal :IEntityRepository<Product> //interface in operasyonlari public, public olmadigi surece kendisi public degil
+   public interface ICategoryDal : IEntityRepository<Category>
     {
-       
 
     }
 }
