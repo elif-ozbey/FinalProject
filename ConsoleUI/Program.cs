@@ -8,11 +8,16 @@ namespace ConsoleUI
     class Program
     {//SOLID
         //Open closed pinciple (solidin o su) 
-      
+       //Dto--urunun isminin yaninda kategory adininda gelmesini saglayan iliskisel tablolardaki datalarin getirilmesi. Data Tarnsformation object
 
         static void Main(string[] args)
         {
-            // ProductTest();
+            ProductTest();
+            //CategoryTest();
+        }
+
+        private static void CategoryTest()
+        {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             foreach (var category in categoryManager.GetAll())
             {
@@ -23,16 +28,20 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal()); //bu inmemory calisacagim demek
-
-            foreach (var product in productManager.GetAllByCategoryId(2))
+            var result = productManager.GetProductDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(product.ProductName);
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+                }
+            }
+            else 
+            {
+                Console.WriteLine(result.Message);
             }
 
-            foreach (var product in productManager.GetByUnitPrice(40, 100))
-            {
-                Console.WriteLine(product.ProductName);
-            }
+            
         }
     }
 }
